@@ -153,7 +153,7 @@ def list(text, level):
     numid = makeelement('numId', attributes=dict(val="1"))
     numPr.append(ilvl)
     numPr.append(numid)
-    ind = makeelement('ind', attributes=dict(left=str(int(firstlevelindent*(level+1)), hanging="359")))
+    ind = makeelement('ind', attributes=dict(left=str(int(firstlevelindent*(level+1)), hanging="359"))
     contextualSpacing = makeelement('contextualSpacing', attributes=dict(val="1"))
     rrPr = makeelement('rPr')
     u = makeelement('u', attributes=dict(val="none"))
