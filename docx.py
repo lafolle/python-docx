@@ -63,7 +63,8 @@ nsprefixes = {
     'pr':  'http://schemas.openxmlformats.org/package/2006/relationships',
     # Dublin Core document properties
     'dcmitype': 'http://purl.org/dc/dcmitype/',
-    'dcterms':  'http://purl.org/dc/terms/'}
+    'dcterms':  'http://purl.org/dc/terms/',
+    'xmlns': 'http://www.w3.org/1999/xhtml'}
 
 
 def opendocx(file):
@@ -75,7 +76,11 @@ def opendocx(file):
 
 
 def newdocument():
+    # document = makeelement('document', nsprefix=[dict(mc="http://schemas.openxmlformats.org/markup-compatibility/2006", o="urn:schemas-microsoft-com:office:office",r="http://schemas.openxmlformats.org/officeDocument/2006/relationships", m="http://schemas.openxmlformats.org/officeDocument/2006/math", v="urn:schemas-microsoft-com:vml", wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing", w10="urn:schemas-microsoft-com:office:word", w="http://schemas.openxmlformats.org/wordprocessingml/2006/main", wne="http://schemas.microsoft.com/office/word/2006/wordml", sl="http://schemas.openxmlformats.org/schemaLibrary/2006/main", a="http://schemas.openxmlformats.org/drawingml/2006/main", pic="http://schemas.openxmlformats.org/drawingml/2006/picture", c="http://schemas.openxmlformats.org/drawingml/2006/chart", lc="http://schemas.openxmlformats.org/drawingml/2006/lockedCanvas", dgm="http://schemas.openxmlformats.org/drawingml/2006/diagram"), attrnsprefix='xmlns')
     document = makeelement('document')
+    # attributes = dict(mc="http://schemas.openxmlformats.org/markup-compatibility/2006", o="urn:schemas-microsoft-com:office:office",r="http://schemas.openxmlformats.org/officeDocument/2006/relationships", m="http://schemas.openxmlformats.org/officeDocument/2006/math", v="urn:schemas-microsoft-com:vml", wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing", w10="urn:schemas-microsoft-com:office:word", w="http://schemas.openxmlformats.org/wordprocessingml/2006/main", wne="http://schemas.microsoft.com/office/word/2006/wordml", sl="http://schemas.openxmlformats.org/schemaLibrary/2006/main", a="http://schemas.openxmlformats.org/drawingml/2006/main", pic="http://schemas.openxmlformats.org/drawingml/2006/picture", c="http://schemas.openxmlformats.org/drawingml/2006/chart", lc="http://schemas.openxmlformats.org/drawingml/2006/lockedCanvas", dgm="http://schemas.openxmlformats.org/drawingml/2006/diagram").items()
+    # for attr in attributes:
+    #     document.set('xmlns+'+attr[0], attr[1])
     document.append(makeelement('body'))
     return document
 
@@ -118,42 +123,46 @@ def makeelement(tagname, tagtext=None, nsprefix='w', attributes=None,
         newelement.text = tagtext
     return newelement
 
-"""
-0<w:p w:rsidP="00000000" w:rsidRPr="00000000" w:rsidR="00000000" w:rsidDel="00000000" w:rsidRDefault="00000000">
-        1<w:pPr>
-            2<w:numPr>
-                3<w:ilvl w:val="1"/>
-                3<w:numId w:val="1"/>
-            2</w:numPr>
-            2<w:ind w:left="1440" w:hanging="359"/>
-            2<w:contextualSpacing w:val="1"/>
-            2<w:rPr>
-                3<w:u w:val="none"/>
-            2</w:rPr>
-        </w:pPr>
-        <w:r w:rsidRPr="00000000" w:rsidR="00000000" w:rsidDel="00000000">
-            <w:rPr>
-                <w:rtl w:val="0"/>
-            </w:rPr>
-            <w:t xml:space="preserve">three</w:t>
-        </w:r>
-    </w:p>
-"""
+# """
+# 0<w:p w:rsidP="00000000" w:rsidRPr="00000000" w:rsidR="00000000" w:rsidDel="00000000" w:rsidRDefault="00000000">
+#         1<w:pPr>
+#             2<w:numPr>
+                  # <w:numFmt w:val="lowerLetter"/>
+#                 3<w:ilvl w:val="1"/>
+#                 3<w:numId w:val="1"/>
+#             2</w:numPr>
+#             2<w:ind w:left="1440" w:hanging="359"/>
+#             2<w:contextualSpacing w:val="1"/>
+#             2<w:rPr>
+#                 3<w:u w:val="none"/>
+#             2</w:rPr>
+#         </w:pPr>
+#         <w:r w:rsidRPr="00000000" w:rsidR="00000000" w:rsidDel="00000000">
+#             <w:rPr>
+#                 <w:rtl w:val="0"/>
+#             </w:rPr>
+#             <w:t xml:space="preserve">three</w:t>
+#         </w:r>
+#     </w:p>
+# """
 
-def list(text, level):
+levelfmt = dict(l0='decimal', l1='lowerLetter', l2='lowerRoman')
+def listing(text, level):
     "Creates a node for a list element with correct leveling"
 
-    firstlevelindent = 720
+    indentlevel = str(720*level)
 
     p = makeelement('p', attributes=dict(rsidP="00000000", rsidRPr="00000000", rsidR="00000000", rsidDel="00000000", rsidRDefault="00000000"))
 
     pPr = makeelement('pPr')
     numPr = makeelement('numPr')
-    ilvl = makeelement('ilvl', attributes=dict(val="1"))
+    ilvl = makeelement('ilvl', attributes=dict(val=str(level)))
     numid = makeelement('numId', attributes=dict(val="1"))
+    indfmt = makeelement('numFmt', attributes=dict(val=levelfmt['l'+str(level)]))
+    numPr.append(indfmt)
     numPr.append(ilvl)
     numPr.append(numid)
-    ind = makeelement('ind', attributes=dict(left=str(int(firstlevelindent*(level+1)), hanging="359")))
+    ind = makeelement('ind', attributes=dict(left=indentlevel, hanging="359"))
     contextualSpacing = makeelement('contextualSpacing', attributes=dict(val="1"))
     rrPr = makeelement('rPr')
     u = makeelement('u', attributes=dict(val="none"))
@@ -167,11 +176,11 @@ def list(text, level):
     rPr = makeelement('rPr')
     rtl = makeelement('rtl', attributes=dict(val="0"))
     rPr.append(rtl)
-    t = makeelement('t', attributes=dict(space='preserve'), attrnsprefix='xml', tagtext=text)
+    t = makeelement('t', attributes=dict(space='preserve'), attrnsprefix='', tagtext=text+' INDENTLEVEL '+indentlevel)
     r.append(rPr)
     r.append(t)
 
-    p.append(rPr)
+    p.append(pPr)
     p.append(r)
 
     return p

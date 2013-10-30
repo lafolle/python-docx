@@ -1,0 +1,78 @@
+<ns0:document xmlns:ns0="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+  <ns0:body>
+    <ns0:p>
+      <ns0:pPr>
+        <ns0:pStyle ns0:val="Heading1"/>
+      </ns0:pPr>
+      <ns0:r>
+        <ns0:t>Welcome to Python's docx module</ns0:t>
+      </ns0:r>
+    </ns0:p>
+    <ns0:p>
+      <ns0:pPr>
+        <ns0:pStyle ns0:val="Heading2"/>
+      </ns0:pPr>
+      <ns0:r>
+        <ns0:t>Make and edit docx in 200 lines of pure Python</ns0:t>
+      </ns0:r>
+    </ns0:p>
+    <ns0:p>
+      <ns0:pPr>
+        <ns0:pStyle ns0:val="BodyText"/>
+        <ns0:jc ns0:val="left"/>
+      </ns0:pPr>
+      <ns0:r>
+        <ns0:rPr/>
+        <ns0:t>The module was created when I was looking for a Python support for MS Word .doc files on PyPI and Stackoverflow. Unfortunately, the only solutions I could find used:</ns0:t>
+      </ns0:r>
+    </ns0:p>
+    <ns0:p>
+      <ns0:pPr>
+        <ns0:pStyle ns0:val="ListNumber"/>
+        <ns0:jc ns0:val="left"/>
+      </ns0:pPr>
+      <ns0:r>
+        <ns0:rPr/>
+        <ns0:t>COM automation</ns0:t>
+      </ns0:r>
+    </ns0:p>
+	<ns0:p w:rsidP="00000000" w:rsidRPr="00000000" w:rsidR="00000000" w:rsidDel="00000000" w:rsidRDefault="00000000">
+			<ns0:pPr>
+				<ns0:numPr>
+					<ns0:ilvl w:val="0"/>
+					<ns0:numId w:val="1"/>
+				</ns0:numPr>
+				<ns0:ind w:left="720" w:hanging="359"/>
+				<ns0:contextualSpacing w:val="1"/>
+				<ns0:rPr>
+					<ns0:u w:val="none"/>
+				</ns0:rPr>
+			</ns0:pPr>
+			<ns0:r w:rsidRPr="00000000" w:rsidR="00000000" w:rsidDel="00000000">
+				<ns0:rPr>
+					<ns0:rtl w:val="0"/>
+				</ns0:rPr>
+				<ns0:t xml:space="preserve">one</ns0:t>
+			</ns0:r>
+		</ns0:p>
+
+		<ns0:p w:rsidP="00000000" w:rsidRPr="00000000" w:rsidR="00000000" w:rsidDel="00000000" w:rsidRDefault="00000000">
+			<ns0:pPr>
+				<ns0:numPr>
+					<ns0:ilvl w:val="1"/>
+					<ns0:numId w:val="1"/>
+				</ns0:numPr>
+				<ns0:ind w:left="1440" w:hanging="359"/>
+				<ns0:contextualSpacing w:val="1"/>
+				<ns0:rPr>
+					<ns0:u w:val="none"/>
+				</ns0:rPr>
+			</ns0:pPr>
+			<ns0:r w:rsidRPr="00000000" w:rsidR="00000000" w:rsidDel="00000000">
+				<ns0:rPr><ns0:rtl w:val="0"/>
+			</ns0:rPr>
+			<ns0:t xml:space="preserve">two</ns0:t>
+			</ns0:r>
+		</ns0:p>
+</ns0:body>
+</ns0:document>		
