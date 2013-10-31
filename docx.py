@@ -147,7 +147,7 @@ def makeelement(tagname, tagtext=None, nsprefix='w', attributes=None,
 # """
 
 levelfmt = dict(l0='decimal', l1='lowerLetter', l2='lowerRoman')
-def listing(text, level):
+def leveledlist(text, level):
     "Creates a node for a list element with correct leveling"
 
     indentlevel = str(720*level)
