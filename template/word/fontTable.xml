@@ -49,4 +49,11 @@
 		<w:pitch w:val="variable"/>
 		<w:sig w:usb0="00000003" w:usb1="00000000" w:usb2="00000000" w:usb3="00000000" w:csb0="00000001" w:csb1="00000000"/>
 	</w:font>
+	<w:font w:name="Droid Serif">
+		<w:panose w:val="2260650920"/>
+		<w:charset w:val="00"/>
+		<w:family w:val="auto"/>
+		<w:pitch w:val="variable"/>
+		<w:sig w:usb0="00000003" w:usb1="00000000" w:usb2="00000000" w:usb3="00000000" w:csb0="00000001" w:csb1="00000000"/>
+	</w:font>
 </w:fonts>

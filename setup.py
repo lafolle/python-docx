@@ -26,5 +26,6 @@ setup(name='docx',
           ('docx-template/docProps', glob('template/docProps/*.*')),
           ('docx-template/word', glob('template/word/*.xml')),
           ('docx-template/word/theme', glob('template/word/theme/*.*')),
+          # ('docx-template/word/', glob('template/word/DroidSerif*.*'))
           ],
       )

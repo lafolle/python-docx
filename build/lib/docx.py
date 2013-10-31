@@ -176,10 +176,11 @@ def leveledlist(text, level):
     r = makeelement('r', attributes=dict(rsidRPr="00000000", rsidR="00000000", rsidDel="00000000"))
     rPr = makeelement('rPr')
     rtl = makeelement('rtl', attributes=dict(val="0"))
-    rfonts = makeelement('rFonts', attributes=dict(ascii="Droid Serif",cs="Droid Serif", hAnsi="Droid Serif", eastAsia="Droid Serif"))
-    rPr.append(rfonts)
+    # rfonts = makeelement('rFonts', attributes=dict(ascii="Droid Serif",cs="Droid Serif", hAnsi="Droid Serif", eastAsia="Droid Serif"))
+    # rfonts = makeelement('rFonts', attributes=dict(name="Droid Serif"))
+    # rPr.append(rfonts)
     rPr.append(rtl)
-    t = makeelement('t', attributes=dict(space='preserve'), attrnsprefix='', tagtext=text+' INDENTLEVEL '+indentlevel)
+    t = makeelement('t', attributes=dict(space='preserve'), attrnsprefix='', tagtext=text)
     r.append(rPr)
     r.append(t)
 
@@ -309,7 +310,10 @@ def contenttypes():
         '/word/styles.xml':       'application/vnd.openxmlformats-officedocu'
                                   'ment.wordprocessingml.styles+xml',
         '/word/webSettings.xml':  'application/vnd.openxmlformats-officedocu'
-                                  'ment.wordprocessingml.webSettings+xml'}
+                                  'ment.wordprocessingml.webSettings+xml',
+        # '/word/DroidSerif.ttf'             : 'application/x-font-ttf',
+        # '/word/DroidSerif-Bold.ttf' : 'application/x-font-ttf'
+        }
     for part in parts:
         types.append(makeelement('Override', nsprefix=None,
                                  attributes={'PartName': part,
@@ -321,7 +325,8 @@ def contenttypes():
         'jpg':  'image/jpeg',
         'png':  'image/png',
         'rels': 'application/vnd.openxmlformats-package.relationships+xml',
-        'xml':  'application/xml'
+        'xml':  'application/xml',
+        'ttf': 'application/x-font-ttf',
     }
     for extension in filetypes:
         attrs = {
@@ -1015,7 +1020,10 @@ def relationshiplist():
          ['http://schemas.openxmlformats.org/officeDocument/2006/'
           'relationships/fontTable', 'fontTable.xml'],
          ['http://schemas.openxmlformats.org/officeDocument/2006/'
-          'relationships/theme', 'theme/theme1.xml']]
+          'relationships/theme', 'theme/theme1.xml'],
+         # ['http://schemas.openxmlformats.org/officeDocument/2006/relationships/fonts', 'DroidSerif.ttf'],
+         # ['http://schemas.openxmlformats.org/officeDocument/2006/relationships/fonts', 'DroidSerif-Bold.ttf']]
+         ]
     return relationshiplist
 
 
@@ -1065,15 +1073,20 @@ def savedocx(document, coreprops, appprops, contenttypes, websettings,
 
     # Add & compress support files
     files_to_ignore = ['.DS_Store']  # nuisance from some os's
+    for p in os.walk('.'): print p
     for dirpath, dirnames, filenames in os.walk('.'):
         for filename in filenames:
             if filename in files_to_ignore:
                 continue
+            print 'adding file : ' + filename
             templatefile = join(dirpath, filename)
             archivename = templatefile[2:]
-            log.info('Saving: %s', archivename)
+            # log.info('Saving: %s', archivename)
             docxfile.write(templatefile, archivename)
     log.info('Saved new file to: %r', output)
+
+
+
     docxfile.close()
     os.chdir(prev_dir)  # restore previous working dir
     return
