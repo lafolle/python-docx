@@ -140,6 +140,7 @@ def makeelement(tagname, tagtext=None, nsprefix='w', attributes=None,
 #         <w:r w:rsidRPr="00000000" w:rsidR="00000000" w:rsidDel="00000000">
 #             <w:rPr>
 #                 <w:rtl w:val="0"/>
+#                 <w:rFonts w:cs="Droid Serif" w:hAnsi="Droid Serif" w:eastAsia="Droid Serif" w:ascii="Droid Serif"/>
 #             </w:rPr>
 #             <w:t xml:space="preserve">three</w:t>
 #         </w:r>
@@ -147,7 +148,7 @@ def makeelement(tagname, tagtext=None, nsprefix='w', attributes=None,
 # """
 
 levelfmt = dict(l0='decimal', l1='lowerLetter', l2='lowerRoman')
-def listing(text, level):
+def leveledlist(text, level):
     "Creates a node for a list element with correct leveling"
 
     indentlevel = str(720*level)
@@ -175,6 +176,8 @@ def listing(text, level):
     r = makeelement('r', attributes=dict(rsidRPr="00000000", rsidR="00000000", rsidDel="00000000"))
     rPr = makeelement('rPr')
     rtl = makeelement('rtl', attributes=dict(val="0"))
+    rfonts = makeelement('rFonts', attributes=dict(ascii="Droid Serif",cs="Droid Serif", hAnsi="Droid Serif", eastAsia="Droid Serif"))
+    rPr.append(rfonts)
     rPr.append(rtl)
     t = makeelement('t', attributes=dict(space='preserve'), attrnsprefix='', tagtext=text+' INDENTLEVEL '+indentlevel)
     r.append(rPr)
